@@ -1,0 +1,26 @@
+<h2>Lista de Clientes</h2>
+
+<button (click)="cargarClientes()">Recargar</button>
+
+<p *ngIf="cargando">Cargando...</p>
+<p *ngIf="error">{{ error }}</p>
+
+<table *ngIf="!cargando && !error && clientes.length > 0" border="1" cellpadding="4">
+  <tr>
+    <th>ID</th>
+    <th>Nombre</th>
+    <th>Apellido</th>
+    <th>DNI</th>
+  </tr>
+
+  <tr *ngFor="let c of clientes">
+    <td>{{ c.id }}</td>
+    <td>{{ c.nombre }}</td>
+    <td>{{ c.apellido }}</td>
+    <td>{{ c.dni }}</td>
+  </tr>
+</table>
+
+<p *ngIf="!cargando && !error && clientes.length === 0">
+  No se encontraron clientes.
+</p>
