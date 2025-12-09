@@ -18,6 +18,7 @@ export class ClientesComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarClientes();
+    console.log(this.clientes);
   }
 
   cargarClientes(): void {

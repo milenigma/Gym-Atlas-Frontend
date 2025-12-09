@@ -3,9 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Cliente {
-  id?: number;      // ajusta si tu entidad se llama distinto (idCliente, etc.)
-  nombre: string;
-  apellido: string;
+  idCliente: number;      // ajusta si tu entidad se llama distinto (idCliente, etc.)
+  nombres: string;
+  apellidos: string;
   dni: string;
 }
 
@@ -14,7 +14,7 @@ export interface Cliente {
 })
 export class ClienteService {
 
-  private apiUrl = 'http://localhost:8080/api/clientes';
+  private apiUrl = 'http://localhost:8081/api/clientes';
 
   constructor(private http: HttpClient) {}
 
