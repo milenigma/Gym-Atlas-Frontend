@@ -1,0 +1,53 @@
+<div class="dashboard-container" *ngIf="usuario">
+  <header class="header">
+    <div class="brand">
+      <h1>Gym Atlas</h1>
+      <span>Panel principal</span>
+    </div>
+    <div class="user-info">
+      <div>
+        <strong>{{ usuario.nombres }} {{ usuario.apellidos }}</strong>
+        <small>Rol: {{ usuario.rol }}</small>
+      </div>
+      <button (click)="cerrarSesion()">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="welcome">
+      <h2>Bienvenido(a), {{ usuario.nombres }}</h2>
+      <p>Selecciona una opción para gestionar el sistema del gimnasio.</p>
+    </section>
+
+    <section class="cards">
+      <div class="card" (click)="irAClientes()">
+        <h3>Clientes</h3>
+        <p>Registrar, listar y gestionar los clientes del gimnasio.</p>
+      </div>
+
+      <div class="card" (click)="irAPlanes()">
+        <h3>Planes</h3>
+        <p>Administrar los planes de membresía y precios.</p>
+      </div>
+
+      <div class="card" (click)="irAMembresias()">
+        <h3>Membresías</h3>
+        <p>Asignar y controlar las membresías de los clientes.</p>
+      </div>
+
+      <div class="card" (click)="irAIngresos()">
+        <h3>Ingresos</h3>
+        <p>Registrar asistencia de clientes por DNI.</p>
+      </div>
+
+      <div class="card" (click)="irAPagos()">
+        <h3>Pagos</h3>
+        <p>Registrar y revisar los pagos de los clientes.</p>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div *ngIf="!usuario" class="no-user">
+  Redirigiendo al login...
+</div>

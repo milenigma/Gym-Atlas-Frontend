@@ -1,0 +1,43 @@
+.login-container {
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 24px;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+  font-family: Arial, sans-serif;
+}
+
+.form-group {
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error-message {
+  margin-top: 12px;
+  color: red;
+  text-align: center;
+}
