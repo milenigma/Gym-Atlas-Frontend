@@ -6,7 +6,12 @@ import { ClientesComponent } from './pages/clientes/clientes/clientes';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  {path: 'clientes', component: ClientesComponent},
+   { path: 'dashboard', component: DashboardComponent },
+  {
+    path: 'clientes',
+    loadComponent: () =>
+      import('./pages/clientes/clientes/clientes')
+        .then(c => c.ClientesComponent)
+  },
   { path: '**', redirectTo: '' }
 ];

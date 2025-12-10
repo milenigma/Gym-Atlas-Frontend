@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService, UsuarioSistema } from '../../services/auth';
+import { ClienteService } from '../../services/cliente';
+
 
 
 @Component({
@@ -17,7 +19,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private clienteService: ClienteService,
   ) {}
 
   ngOnInit(): void {
