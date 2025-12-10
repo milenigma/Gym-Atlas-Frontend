@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthService, LoginRequest, UsuarioSistema } from '../../services/auth';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-login',
@@ -13,37 +13,21 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  username: string = '';
-  password: string = '';
-  mensajeError: string = '';
-  cargando: boolean = false;
+  username = '';
+  password = '';
+  error = '';
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
-  onLogin(): void {
-    this.mensajeError = '';
-    this.cargando = true;
+  iniciarSesion() {
+    this.error = '';
 
-    const request: LoginRequest = {
-      username: this.username,
-      password: this.password
-    };
-
-    this.authService.login(request).subscribe({
-      next: (usuario: UsuarioSistema) => {
-        this.cargando = false;
-        this.authService.guardarUsuario(usuario);
-        alert(`Bienvenido ${usuario.nombres}`);
-
-        // Cuando crees el dashboard, lo rediriges así:
-        this.router.navigate(['/dashboard']);
+    this.authService.login(this.username, this.password).subscribe({
+      next: (usuario) => {
+        this.router.navigate(['/dashboard']); // REDIRECCIÓN CORRECTA
       },
       error: () => {
-        this.cargando = false;
-        this.mensajeError = 'Usuario o contraseña incorrectos.';
+        this.error = 'Credenciales incorrectas';
       }
     });
   }

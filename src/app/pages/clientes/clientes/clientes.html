@@ -1,0 +1,102 @@
+<div class="container mt-4">
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Clientes</h2>
+    <button class="btn btn-primary" (click)="abrirNuevoCliente()">Nuevo Cliente</button>
+  </div>
+
+  <!-- Tabla -->
+  <table class="table table-striped table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>DNI</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Teléfono</th>
+        <th class="text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of clientes; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ c.dni }}</td>
+        <td>{{ c.nombres }} {{ c.apellidos }}</td>
+        <td>{{ c.email }}</td>
+        <td>{{ c.telefono }}</td>
+        <td class="text-center">
+          <button class="btn btn-warning btn-sm me-2" (click)="abrirEditar(c)">Editar</button>
+          <button class="btn btn-danger btn-sm" (click)="abrirEliminar(c)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- MODAL CREAR / EDITAR -->
+<div class="modal fade show d-block" *ngIf="mostrarModal" style="background: rgba(0,0,0,0.5)">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">{{ modoEdicion ? 'Editar Cliente' : 'Nuevo Cliente' }}</h5>
+        <button class="btn-close" (click)="cerrarModal()"></button>
+      </div>
+
+      <div class="modal-body">
+        <form class="row g-3">
+          <div class="col-md-6">
+            <label>DNI</label>
+            <input class="form-control" [(ngModel)]="clienteActual.dni" name="dni">
+          </div>
+          <div class="col-md-6">
+            <label>Nombres</label>
+            <input class="form-control" [(ngModel)]="clienteActual.nombres" name="nombres">
+          </div>
+          <div class="col-md-6">
+            <label>Apellidos</label>
+            <input class="form-control" [(ngModel)]="clienteActual.apellidos" name="apellidos">
+          </div>
+          <div class="col-md-6">
+            <label>Email</label>
+            <input class="form-control" [(ngModel)]="clienteActual.email" name="email">
+          </div>
+          <div class="col-md-6">
+            <label>Teléfono</label>
+            <input class="form-control" [(ngModel)]="clienteActual.telefono" name="telefono">
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>
+        <button class="btn btn-primary" (click)="guardarCliente()">Guardar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ELIMINAR -->
+<div class="modal fade show d-block" *ngIf="mostrarModalEliminar" style="background: rgba(0,0,0,0.5)">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar Cliente</h5>
+        <button class="btn-close" (click)="cerrarModalEliminar()"></button>
+      </div>
+
+      <div class="modal-body">
+        ¿Seguro que deseas eliminar este cliente?
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-danger" (click)="eliminarCliente()">Eliminar</button>
+        <button class="btn btn-secondary" (click)="cerrarModalEliminar()">Cancelar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+

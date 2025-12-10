@@ -1,15 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
-export interface LoginRequest {
-  username: string;
-  password: string;
-}
-
-// Ajusta estos campos según lo que devuelva tu backend
 export interface UsuarioSistema {
-  idUsuario: number;
+  idUsuario?: number;
   username: string;
   nombres: string;
   apellidos: string;
@@ -22,26 +16,36 @@ export interface UsuarioSistema {
 })
 export class AuthService {
 
-  // Ajusta esta URL a tu backend real
-  private baseUrl = 'http://localhost:8081/api/usuarios';
+  private apiUrl = 'http://localhost:8081/api/usuarios/login';
+  private usuarioKey = 'usuarioActual';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  login(credentials: LoginRequest): Observable<UsuarioSistema> {
-    return this.http.post<UsuarioSistema>(`${this.baseUrl}/login`, credentials);
+  // LOGIN al backend
+  login(username: string, password: string): Observable<UsuarioSistema> {
+    return this.http.post<UsuarioSistema>(this.apiUrl, { username, password }).pipe(
+      tap(usuario => {
+        if (usuario) {
+          localStorage.setItem(this.usuarioKey, JSON.stringify(usuario));
+        }
+      })
+    );
   }
 
-  guardarUsuario(usuario: UsuarioSistema): void {
-    localStorage.setItem('usuarioLogueado', JSON.stringify(usuario));
-  }
-
+  // OBTENER USUARIO LOGUEADO
   obtenerUsuario(): UsuarioSistema | null {
-    const data = localStorage.getItem('usuarioLogueado');
+    const data = localStorage.getItem(this.usuarioKey);
     return data ? JSON.parse(data) : null;
   }
 
+  // VALIDAR SI HAY SESIÓN
+  estaAutenticado(): boolean {
+    return !!localStorage.getItem(this.usuarioKey);
+  }
+
+  // CERRAR SESIÓN
   cerrarSesion(): void {
-    localStorage.removeItem('usuarioLogueado');
+    localStorage.removeItem(this.usuarioKey);
   }
 }
 
